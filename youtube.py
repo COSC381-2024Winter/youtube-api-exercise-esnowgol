@@ -18,10 +18,16 @@ def youtube_search(query_term, max_results):
     for search_result in search_response["items"]:
         videos.append(search_result)
 
-
+    if len(videos) <= 0:
+        print("No results found")
+    elif len(videos) < int(max_results):
+        print("No more results")
     return videos
 
 if __name__ == "__main__":
     query_term = sys.argv[1]
     max_results = sys.argv[2]
-    print(youtube_search(query_term, max_results))
+    
+    videos = youtube_search(query_term, max_results)
+    if (len(videos) > 0):
+        print(videos)
