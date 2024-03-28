@@ -15,6 +15,7 @@ def youtube_search(query_term, max_results):
     search_response = youtube.search().list(q=query_term, part="id,snippet", maxResults=max_results).execute()
 
     videos = []
+    nextPageToken = search_response["nextPageToken"]
     for search_result in search_response["items"]:
         videos.append(search_result)
 
@@ -22,12 +23,12 @@ def youtube_search(query_term, max_results):
         print("No results found")
     elif len(videos) < int(max_results):
         print("No more results")
-    return videos
+    return videos, nextPageToken
 
 if __name__ == "__main__":
     query_term = sys.argv[1]
     max_results = sys.argv[2]
     
-    videos = youtube_search(query_term, max_results)
+    videos, nextPageToken = youtube_search(query_term, max_results)
     if (len(videos) > 0):
         print(videos)
