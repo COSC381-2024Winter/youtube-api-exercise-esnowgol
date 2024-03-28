@@ -14,10 +14,12 @@ def youtube_search(query_term, max_results):
                     developerKey=DEVELOPER_KEY)
     search_response = youtube.search().list(q=query_term, part="id,snippet", maxResults=max_results).execute()
 
+    videos = []
+    for search_result in search_response["items"]:
+        videos.append(search_result)
 
 
-
-    return search_response
+    return videos
 
 if __name__ == "__main__":
     query_term = sys.argv[1]
